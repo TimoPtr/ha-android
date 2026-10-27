@@ -22,12 +22,13 @@ jobs:
     # TODO pin by SHA with a version comment once auto-triage moves to the home-assistant organization and tags v1
     uses: TimoPtr/auto-triage/.github/workflows/triage.lock.yml@main
     # contents and actions for the checkout and the index artifact fallback, issues for the label removal
-    # and the comment, copilot-requests for the agent. Issues from anyone are triaged; a labeled event
-    # runs only for ai-recheck.
+    # and the comment, pull-requests read for gh-aw's own conclusion jobs, copilot-requests for the agent.
+    # Issues from anyone are triaged; a labeled event runs only for ai-recheck.
     permissions:
       contents: read
       actions: read
       issues: write
+      pull-requests: read
       copilot-requests: write
     with:
       issue-number: ${{ github.event.issue.number || inputs.issue-number }}

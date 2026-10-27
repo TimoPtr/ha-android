@@ -1,0 +1,21 @@
+name: Knowledge index append
+
+on: # yamllint disable-line rule:truthy
+  issues:
+    types: [closed]
+  pull_request_target:
+    types: [closed]
+
+permissions: {}
+
+jobs:
+  append:
+    # pull_request_target keeps the base repository's cache scope for forks; the called workflow never
+    # checks out pull request code, it only reads the API.
+    uses: TimoPtr/auto-triage/.github/workflows/append-on-close.yml@main
+    permissions:
+      contents: read
+      actions: read
+    with:
+      slug: android
+      item: ${{ github.event_name == 'issues' && format('issue:{0}', github.event.issue.number) || format('pull:{0}', github.event.pull_request.number) }}

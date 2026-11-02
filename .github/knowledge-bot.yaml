@@ -1,4 +1,4 @@
-# Knowledge bot configuration. Schema: https://github.com/home-assistant/auto-triage/tree/main/schemas
+# Knowledge bot configuration. Schema: https://github.com/TimoPtr/auto-triage/tree/main/schemas
 version: 1
 
 product:

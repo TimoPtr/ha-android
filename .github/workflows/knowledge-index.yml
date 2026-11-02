@@ -19,12 +19,11 @@ permissions: {}
 
 jobs:
   build:
-    # TODO pin by SHA with a version comment once auto-triage moves to the home-assistant organization and tags v1
-    uses: TimoPtr/auto-triage/.github/workflows/build-index.yml@main
+    uses: TimoPtr/auto-triage/.github/workflows/build-index.yml@a582c4e6708ddc8af0caf6424f171e9f1f8f31e1 # v0.2.0
     permissions:
-      contents: read
-      actions: read
-      issues: write
+      contents: read  # the called workflow checks this repository out for the docs and code sources
+      actions: read  # restores the previous index and feedback artifacts
+      issues: write  # keeps the feedback digest issue and the eval regression issue
     with:
       slug: android
       checkouts: |

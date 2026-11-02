@@ -19,17 +19,16 @@ concurrency:
 
 jobs:
   triage:
-    # TODO pin by SHA with a version comment once auto-triage moves to the home-assistant organization and tags v1
-    uses: TimoPtr/auto-triage/.github/workflows/triage.lock.yml@main
+    uses: TimoPtr/auto-triage/.github/workflows/triage.lock.yml@a582c4e6708ddc8af0caf6424f171e9f1f8f31e1 # v0.2.0
     # contents and actions for the checkout and the index artifact fallback, issues for the label removal
     # and the comment, pull-requests read for gh-aw's own conclusion jobs, copilot-requests for the agent.
     # Issues from anyone are triaged; a labeled event runs only for ai-recheck.
     permissions:
-      contents: read
-      actions: read
-      issues: write
-      pull-requests: read
-      copilot-requests: write
+      contents: read  # checkouts of this repository and of the bot scripts
+      actions: read  # restores the index artifact and passes the handoff between jobs
+      issues: write  # removes the ai-recheck label, minimizes older bot comments, posts the comment
+      pull-requests: read  # required by the gh-aw activation job
+      copilot-requests: write  # the agent job runs on Copilot with the workflow token
     with:
       issue-number: ${{ github.event.issue.number || inputs.issue-number }}
       event-action: ${{ github.event.action || 'dispatch' }}

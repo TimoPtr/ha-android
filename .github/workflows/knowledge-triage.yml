@@ -12,14 +12,16 @@ on: # yamllint disable-line rule:truthy
 
 permissions: {}
 
-# One run per issue at a time: an ai-recheck applied during a run waits instead of racing it.
-concurrency:
-  group: knowledge-triage-${{ github.event.issue.number || inputs.issue-number }}
-  cancel-in-progress: false
-
 jobs:
   triage:
-    uses: TimoPtr/auto-triage/.github/workflows/triage.lock.yml@a582c4e6708ddc8af0caf6424f171e9f1f8f31e1 # v0.2.0
+    # An issue created with a label fires opened and labeled at once; only ai-recheck labels start a run.
+    # Skipped here, before the reusable workflow, so the duplicate run never queues behind the real one.
+    if: github.event_name != 'issues' || github.event.action != 'labeled' || github.event.label.name == 'ai-recheck'
+    # One run per issue at a time: an ai-recheck applied during a run waits instead of racing it.
+    concurrency:
+      group: knowledge-triage-${{ github.event.issue.number || inputs.issue-number }}
+      cancel-in-progress: false
+    uses: TimoPtr/auto-triage/.github/workflows/triage.lock.yml@4b2f8ab527a788e42810750a647ec19e678950c7 # v0.2.1
     # contents and actions for the checkout and the index artifact fallback, issues for the label removal
     # and the comment, pull-requests read for gh-aw's own conclusion jobs, copilot-requests for the agent.
     # Issues from anyone are triaged; a labeled event runs only for ai-recheck.

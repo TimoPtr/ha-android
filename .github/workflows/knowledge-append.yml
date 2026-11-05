@@ -12,7 +12,7 @@ jobs:
   append:
     # pull_request_target keeps the base repository's cache scope for forks; the called workflow never
     # checks out pull request code, it only reads the API.
-    uses: TimoPtr/auto-triage/.github/workflows/append-on-close.yml@4b2f8ab527a788e42810750a647ec19e678950c7 # v0.2.1
+    uses: TimoPtr/auto-triage/.github/workflows/append-on-close.yml@5bf773a97be4915ee3bb96813be2558f4f6572f8 # v0.2.2
     permissions:
       contents: read  # the called workflow checks this repository out
       actions: read  # restores the index artifact of the last build

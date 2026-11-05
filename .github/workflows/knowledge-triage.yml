@@ -21,7 +21,7 @@ jobs:
     concurrency:
       group: knowledge-triage-${{ github.event.issue.number || inputs.issue-number }}
       cancel-in-progress: false
-    uses: TimoPtr/auto-triage/.github/workflows/triage.lock.yml@4b2f8ab527a788e42810750a647ec19e678950c7 # v0.2.1
+    uses: TimoPtr/auto-triage/.github/workflows/triage.lock.yml@5bf773a97be4915ee3bb96813be2558f4f6572f8 # v0.2.2
     # contents and actions for the checkout and the index artifact fallback, issues for the label removal
     # and the comment, pull-requests read for gh-aw's own conclusion jobs, copilot-requests for the agent.
     # Issues from anyone are triaged; a labeled event runs only for ai-recheck.
